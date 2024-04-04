@@ -14,10 +14,3 @@ RUN /install.sh && rm /install.sh
 RUN /root/.cargo/bin/uv pip install --no-cache -r requirements.txt
 
 COPY . ./
-
-# Run the app using gunicorn.
-# Expose the port gunicorn is listening on (80).
-# Set the number of workers to 10.
-# Preload the app to avoid the overhead of loading the app for each worker. See https://www.joelsleppy.com/blog/gunicorn-application-preloading/
-# Set the app to be the server variable in app.py.
-CMD ["gunicorn", "-b", "0.0.0.0:80", "-k", "gevent", "--workers=10", "--preload", "app:server"]
